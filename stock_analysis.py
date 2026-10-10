@@ -60,3 +60,13 @@ print(
     [["Date", "Ticker", "Close", "Daily_Return"]]
 )
 
+# Descriptive statistics for daily returns and closing prices
+stats = long.groupby("Ticker")[["Close", "Daily_Return"]].agg(
+    ["count", "mean", "median", "min", "max", "std"]
+)
+
+print("\nDescriptive statistics by stock:")
+print(stats)
+
+# Save descriptive statistics to a CSV file
+stats.to_csv("output/descriptive_statistics.csv")
