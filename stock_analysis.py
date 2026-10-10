@@ -49,3 +49,14 @@ print("Number of records:", len(long))
 Path("output").mkdir(exist_ok=True)
 long.head().to_csv("output/first_five_rows.csv")
 long.isna().sum().rename("missing_count").to_csv("output/missing_values.csv")
+
+# Calculate daily returns
+long["Daily_Return"] = long.groupby("Ticker")["Close"].pct_change()
+
+print("\nDaily returns calculated. First five rows with daily returns:")
+print(
+    long.groupby("Ticker")
+    .head()
+    [["Date", "Ticker", "Close", "Daily_Return"]]
+)
+
