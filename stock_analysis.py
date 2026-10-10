@@ -49,3 +49,63 @@ print("Number of records:", len(long))
 Path("output").mkdir(exist_ok=True)
 long.head().to_csv("output/first_five_rows.csv")
 long.isna().sum().rename("missing_count").to_csv("output/missing_values.csv")
+
+# Calculate daily returns
+long["Daily_Return"] = long.groupby("Ticker")["Close"].pct_change()
+
+print("\nDaily returns calculated. First five rows with daily returns:")
+print(
+    long.groupby("Ticker")
+    .head()
+    [["Date", "Ticker", "Close", "Daily_Return"]]
+)
+
+# Descriptive statistics for daily returns and closing prices
+stats = long.groupby("Ticker")[["Close", "Daily_Return"]].agg(
+    ["count", "mean", "median", "min", "max", "std"]
+)
+
+print("\nDescriptive statistics by stock:")
+print(stats)
+
+# Save descriptive statistics to a CSV file
+stats.to_csv("output/descriptive_statistics.csv")
+
+# Correlation matrix of daily returns
+correlation_matrix = long.pivot(index="Date", columns="Ticker", values="Daily_Return").corr()
+
+print("\nCorrelation matrix of daily returns:")
+print(correlation_matrix)
+
+# Save correlation matrix to a CSV file
+correlation_matrix.to_csv("output/correlation_matrix.csv")
+
+# Load the interpretation
+print("\nCorrelation Interpretation:")
+print(
+    "All three stocks have positive correlations in their daily returns, "
+    "suggesting that they tend to move together rather than independently. "
+    "CVX and XOM have the strongest correlation (0.7907), while CVX and FANG "
+    "have the weakest correlation (0.6663)."
+)
+
+# Monthly average closing prices by ticker
+monthly_summary = (
+    long.groupby(["Ticker", pd.Grouper(key="Date", freq="MS")])["Close"]
+    .mean()
+    .reset_index()
+)
+
+monthly_summary["Close"] = monthly_summary["Close"].round(2)
+
+print("\nMonthly Average Closing Price by Stock:")
+print(
+    monthly_summary.pivot(
+        index="Date",
+        columns="Ticker",
+        values="Close"
+    ).to_string()
+)
+
+# Save the monthly summary
+monthly_summary.to_csv("output/monthly_average_closing_price.csv", index=False)
