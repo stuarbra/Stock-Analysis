@@ -88,3 +88,24 @@ print(
     "CVX and XOM have the strongest correlation (0.7907), while CVX and FANG "
     "have the weakest correlation (0.6663)."
 )
+
+# Monthly average closing prices by ticker
+monthly_summary = (
+    long.groupby(["Ticker", pd.Grouper(key="Date", freq="MS")])["Close"]
+    .mean()
+    .reset_index()
+)
+
+monthly_summary["Close"] = monthly_summary["Close"].round(2)
+
+print("\nMonthly Average Closing Price by Stock:")
+print(
+    monthly_summary.pivot(
+        index="Date",
+        columns="Ticker",
+        values="Close"
+    ).to_string()
+)
+
+# Save the monthly summary
+monthly_summary.to_csv("output/monthly_average_closing_price.csv", index=False)
