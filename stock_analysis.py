@@ -70,3 +70,12 @@ print(stats)
 
 # Save descriptive statistics to a CSV file
 stats.to_csv("output/descriptive_statistics.csv")
+
+# Correlation matrix of daily returns
+correlation_matrix = long.pivot(index="Date", columns="Ticker", values="Daily_Return").corr()
+
+print("\nCorrelation matrix of daily returns:")
+print(correlation_matrix)
+
+# Save correlation matrix to a CSV file
+correlation_matrix.to_csv("output/correlation_matrix.csv")
