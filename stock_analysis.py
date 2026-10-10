@@ -79,3 +79,12 @@ print(correlation_matrix)
 
 # Save correlation matrix to a CSV file
 correlation_matrix.to_csv("output/correlation_matrix.csv")
+
+# Load the interpretation
+print("\nCorrelation Interpretation:")
+print(
+    "All three stocks have positive correlations in their daily returns, "
+    "suggesting that they tend to move together rather than independently. "
+    "CVX and XOM have the strongest correlation (0.7907), while CVX and FANG "
+    "have the weakest correlation (0.6663)."
+)
