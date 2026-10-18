@@ -109,3 +109,48 @@ print(
 
 # Save the monthly summary
 monthly_summary.to_csv("output/monthly_average_closing_price.csv", index=False)
+
+# Finds the highest and lowest daily returns for each stock
+
+movement_rows = []
+for ticker, ticker_prices in long.groupby('Ticker'):
+    valid_returns = ticker_prices.dropna(subset=['Daily_Return']).copy()
+
+    highest = valid_returns.loc[valid_returns['Daily_Return'].idxmax()]
+    lowest = valid_returns.loc[valid_returns['Daily_Return'].idxmin()]
+
+
+    movement_rows.append({
+        'Ticker': ticker,
+        'Type': 'Highest',
+        'Event_Date': highest['Date'],
+        'Daily_Return': highest['Daily_Return'],
+        'Close': highest['Close'],
+        'Volume': highest['Volume'],
+    })
+    movement_rows.append({
+        'Ticker': ticker,
+        'Type': 'Lowest', 
+        'Event_Date': lowest['Date'],
+        'Daily_Return': lowest['Daily_Return'],
+        'Close': lowest['Close'],
+        'Volume': lowest['Volume'],
+    })
+movement_candidates = pd.DataFrame(movement_rows).sort_values(['Ticker', 'Type'])
+print("--- Largest one-day drop and gain for each ticker ---")
+print(movement_candidates.to_string(index=False))
+
+#Additional OHLCV & Daily Returns for each stock 
+
+for ticker, ticker_data in long.groupby("Ticker"):
+    highest_return = ticker_data.sort_values(
+        "Daily_Return", ascending=False
+    ).iloc[0]
+    lowest_return = ticker_data.sort_values(
+        "Daily_Return", ascending=True
+    ).iloc[0]
+
+    print(ticker)
+    print("Highest return:", highest_return)
+    print("Lowest return:", lowest_return)
+
