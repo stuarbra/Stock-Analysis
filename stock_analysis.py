@@ -141,7 +141,7 @@ movement_candidates = pd.DataFrame(movement_rows).sort_values(['Ticker', 'Type']
 print("\nLargest one-day gain and loss for each ticker")
 print(movement_candidates.to_string(index=False))
 
-#Additional OHLCV & Daily Returns for each stock 
+# Additional OHLCV & Daily Returns for each stock 
 
 for ticker, ticker_data in long.groupby("Ticker"):
     biggest_gain = ticker_data.sort_values(
