@@ -109,3 +109,59 @@ print(
 
 # Save the monthly summary
 monthly_summary.to_csv("output/monthly_average_closing_price.csv", index=False)
+
+print("\nBusiness Story")
+
+# Finds the biggest positive and negative movement for each stock
+
+movement_rows = []
+for ticker, ticker_prices in long.groupby('Ticker'):
+    valid_returns = ticker_prices.dropna(subset=['Daily_Return']).copy()
+
+    biggest_gain = valid_returns.loc[valid_returns['Daily_Return'].idxmax()]
+    biggest_loss = valid_returns.loc[valid_returns['Daily_Return'].idxmin()]
+
+    movement_rows.append({
+        'Ticker': ticker,
+        'Type': 'Biggest Gain',
+        'Event_Date': biggest_gain['Date'],
+        'Daily_Return': biggest_gain['Daily_Return'],
+        'Close': biggest_gain['Close'],
+        'Volume': biggest_gain['Volume'],
+    })
+    movement_rows.append({
+        'Ticker': ticker,
+        'Type': 'Biggest Loss', 
+        'Event_Date': biggest_loss['Date'],
+        'Daily_Return': biggest_loss['Daily_Return'],
+        'Close': biggest_loss['Close'],
+        'Volume': biggest_loss['Volume'],
+    })
+movement_candidates = pd.DataFrame(movement_rows).sort_values(['Ticker', 'Type'])
+print("\nLargest one-day gain and loss for each ticker")
+print(movement_candidates.to_string(index=False))
+
+#Additional OHLCV & Daily Returns for each stock 
+
+for ticker, ticker_data in long.groupby("Ticker"):
+    biggest_gain = ticker_data.sort_values(
+        "Daily_Return", ascending=False
+    ).iloc[0]
+    biggest_loss = ticker_data.sort_values(
+        "Daily_Return", ascending=True
+    ).iloc[0]
+
+    print("\n" + ticker)
+    print("\nBiggest gain:", biggest_gain)
+    print("\nBiggest loss:", biggest_loss)
+
+print("\nBusiness Story Summary:"
+"\nMovement Chosen for each stock:"
+"\nCVX - OCTOBER 27TH, 2023"
+"\nNegative movement - Total earning dropped"
+"\nFANG - FEBRUARY 13TH, 2024 "
+"\nPositive movement - Merger with Endeavor Energy"
+"\nXOM - MARCH APRIL 3RD, 2023 "
+"\nPositive movement - OPEC+ meeting and production cuts announcement"
+)
+
