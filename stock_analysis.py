@@ -110,47 +110,58 @@ print(
 # Save the monthly summary
 monthly_summary.to_csv("output/monthly_average_closing_price.csv", index=False)
 
-# Finds the highest and lowest daily returns for each stock
+print("\nBusiness Story")
+
+# Finds the biggest positive and negative movement for each stock
 
 movement_rows = []
 for ticker, ticker_prices in long.groupby('Ticker'):
     valid_returns = ticker_prices.dropna(subset=['Daily_Return']).copy()
 
-    highest = valid_returns.loc[valid_returns['Daily_Return'].idxmax()]
-    lowest = valid_returns.loc[valid_returns['Daily_Return'].idxmin()]
-
+    biggest_gain = valid_returns.loc[valid_returns['Daily_Return'].idxmax()]
+    biggest_loss = valid_returns.loc[valid_returns['Daily_Return'].idxmin()]
 
     movement_rows.append({
         'Ticker': ticker,
-        'Type': 'Highest',
-        'Event_Date': highest['Date'],
-        'Daily_Return': highest['Daily_Return'],
-        'Close': highest['Close'],
-        'Volume': highest['Volume'],
+        'Type': 'Biggest Gain',
+        'Event_Date': biggest_gain['Date'],
+        'Daily_Return': biggest_gain['Daily_Return'],
+        'Close': biggest_gain['Close'],
+        'Volume': biggest_gain['Volume'],
     })
     movement_rows.append({
         'Ticker': ticker,
-        'Type': 'Lowest', 
-        'Event_Date': lowest['Date'],
-        'Daily_Return': lowest['Daily_Return'],
-        'Close': lowest['Close'],
-        'Volume': lowest['Volume'],
+        'Type': 'Biggest Loss', 
+        'Event_Date': biggest_loss['Date'],
+        'Daily_Return': biggest_loss['Daily_Return'],
+        'Close': biggest_loss['Close'],
+        'Volume': biggest_loss['Volume'],
     })
 movement_candidates = pd.DataFrame(movement_rows).sort_values(['Ticker', 'Type'])
-print("--- Largest one-day drop and gain for each ticker ---")
+print("\nLargest one-day gain and loss for each ticker")
 print(movement_candidates.to_string(index=False))
 
 #Additional OHLCV & Daily Returns for each stock 
 
 for ticker, ticker_data in long.groupby("Ticker"):
-    highest_return = ticker_data.sort_values(
+    biggest_gain = ticker_data.sort_values(
         "Daily_Return", ascending=False
     ).iloc[0]
-    lowest_return = ticker_data.sort_values(
+    biggest_loss = ticker_data.sort_values(
         "Daily_Return", ascending=True
     ).iloc[0]
 
-    print(ticker)
-    print("Highest return:", highest_return)
-    print("Lowest return:", lowest_return)
+    print("\n" + ticker)
+    print("\nBiggest gain:", biggest_gain)
+    print("\nBiggest loss:", biggest_loss)
+
+print("\nBusiness Story Summary:"
+"\nMovement Chosen for each stock:"
+"\nCVX - OCTOBER 27TH, 2023"
+"\nNegative movement - Total earning dropped"
+"\nFANG - FEBRUARY 13TH, 2024 "
+"\nPositive movement - Merger with Endeavor Energy"
+"\nXOM - MARCH APRIL 3RD, 2023 "
+"\nPositive movement - OPEC+ meeting and production cuts announcement"
+)
 
