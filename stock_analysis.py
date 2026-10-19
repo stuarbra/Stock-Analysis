@@ -166,6 +166,7 @@ print("\nBusiness Story Summary:"
 )
 
 #Visualization 
+# Chart 1 : Normalized price performance across the analysis period
 Path("charts").mkdir(exist_ok=True)
 price_matrix = long.pivot(index="Date", columns="Ticker", values="Close")
 normalized = (
@@ -181,3 +182,33 @@ plt.ylabel("Indexed price (first observation = 100)")
 plt.tight_layout()
 plt.savefig("charts/normalized_prices.png", dpi=150)
 plt.show()
+
+#Chart 2 : Significant movement period for CVX
+Path("charts").mkdir(exist_ok=True)
+
+event_choice = movement_candidates[
+    (movement_candidates['Ticker'] == 'CVX') 
+    & (movement_candidates['Type'] == 'Biggest Loss')
+].iloc[0]
+event_ticker = event_choice['Ticker']
+event_date = pd.Timestamp(event_choice['Event_Date'])
+
+calendar_window = pd.Timedelta(days=14)
+event_window = long[
+    (long['Ticker'] == event_ticker)
+    & long['Date'].between(event_date - calendar_window, event_date + calendar_window)
+].sort_values('Date').set_index('Date')
+
+ax = event_window['Close'].plot(
+    kind='line', marker='o', figsize=(10, 5),
+    title=f"{event_ticker}: Event Window Around {event_date.date()}",
+    ylabel='Adjusted closing price ($)'
+)
+ax.axvline(event_date, color='red', linestyle='--', label=event_choice['Type'])
+ax.set_xlabel('Date')
+ax.legend()
+plt.tight_layout()
+plt.savefig(f"charts/{event_ticker}_event_window.png", dpi=150)
+plt.show()
+
+print(f"Selected {event_ticker} candidate: {event_choice['Daily_Return_Pct']:.2f}% on {event_date.date()}")
