@@ -165,3 +165,19 @@ print("\nBusiness Story Summary:"
 "\nPositive movement - OPEC+ meeting and production cuts announcement"
 )
 
+#Visualization 
+Path("charts").mkdir(exist_ok=True)
+price_matrix = long.pivot(index="Date", columns="Ticker", values="Close")
+normalized = (
+    price_matrix
+    .div(price_matrix.iloc[0])
+    .mul(100)
+)
+
+normalized.plot(figsize=(10, 6))
+plt.title("Normalized price performance across the analysis period")
+plt.xlabel("Date")
+plt.ylabel("Indexed price (first observation = 100)")
+plt.tight_layout()
+plt.savefig("charts/normalized_prices.png", dpi=150)
+plt.show()
