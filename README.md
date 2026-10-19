@@ -23,34 +23,41 @@ All three are U.S. oil and gas producers exposed to the same crude oil price tre
 pip install -r requirements.txt
 python stock_analysis.py
 
-## Visualization Tools Used
+## Visualization Tools Used & Brief Explanation
 Native Pandas/Matplotlib 
 (1)Normalized Price Comparison 
+
 ![Normalized Price Comparison](charts/normalized_prices.png)
+*Comparison of growth from beginning of 2023 to end of 2024: FANG experienced the most growth, CVX ending below starting price, with XOM experiencing minimal growth.*
 
 (2)Significant Movement Period (CVX)
+
 ![Significant Movement Period (CVX)](charts/CVX_event_window.png)
+*Showcases biggest drop in CVX, due to Q3 performance falling shorter than projected*
 
 (3)Daily Return Distribution
+
 ![Daily Return Distribution](charts/return_distribution.png)
+*FANG reacts strongest towads fluctuations in oil prices due to being a smaller shale producer, CVX and XOM are gradual thanks to their diversification and size* 
 
 (4)Relation between two stocks (CVX and XOM)
-![Relation between two stocks (CVX and XOM)](charts/return_relationship.png)
 
+![Relation between two stocks (CVX and XOM)](charts/return_relationship.png)
+*Postive upward slope across, correlating towards Finding 3* 
 
 ## Significant Movements with Dates
 CVX - October 27TH, 2023 : NEGATIVE MOVEMENT
 
 XOM - APRIL 3RD, 2023 : POSITIVE MOVEMENT
 
-FANG - Februrary 13TH, 2024 : POSITIVE MOVEMENT 
+FANG - February 13TH, 2024 : POSITIVE MOVEMENT 
 
-*Interesting observation March 15TH, 2023 for the FANG and XOM both experiened negative movement* 
+*Interesting observation March 15TH, 2023 for the FANG and XOM both experienced negative movement* 
 
-## Resarched Explanations with Sources
-CVX: With CVX Q3 earnings falling shorted than analyst predictions due to lowered upstream realizations and margins on refined product sales despite higher oil prices. This display made it challenging for investors justify investing in CVX. Further announcements of accquisitions of Hess Corp, PDC energy, and a majority stake in ACES Delta, further contributed towards such discernment.  
+## Researched Explanations with Sources
+CVX: With CVX Q3 earnings falling shorter than analyst predictions due to lowered upstream realizations and margins on refined product sales despite higher oil prices. This display made it challenging for investors justify investing in CVX. Further announcements of accquisitions of Hess Corp, PDC energy, and a majority stake in ACES Delta, further contributed towards such discernment.  
 
-XOM: Implementation of oil production cuts by OPEC+ and non-OPEC+ countries aimed at market stabilazation.This interplays the perspective of greater oil scarcity which places the valuation of oil to be greater. XOM benefits as it greater valuation leads to greater value in their production operations. In turn this grants postive investor behavior as this leads towars future profitability. 
+XOM: Implementation of oil production cuts by OPEC+ and non-OPEC+ countries aimed at market stabilization.This interplays the perspective of greater oil scarcity which places the valuation of oil to be greater. XOM benefits as it greater valuation leads to greater value in their production operations. In turn this grants positive investor behavior as this leads towards future profitability. 
 
 FANG: Merger announcement between Diamondback Energy, Inc and Endeavor Energy Resources, L.P. This merger projects approximately $550 million in annual synergies and 10% free cash flow per share by 2025. This is further projected by talks of high synergies, combined industry depth, and improved capital allocation. In this confidence, causes investors to react positively towards the merger. 
 
