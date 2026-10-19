@@ -24,10 +24,35 @@ pip install -r requirements.txt
 python stock_analysis.py
 
 ## Visualization Tools Used
+Native Pandas/Matplotlib 
+(1)Normalized Price Comparison 
+![Normalized Price Comparison](charts/normalized_prices.png)
+
+(2)Significant Movement Period (CVX)
+![Significant Movement Period (CVX)](charts/CVX_event_window.png)
+
+(3)Daily Return Distribution
+![Daily Return Distribution](charts/return_distribution.png)
+
+(4)Relation between two stocks (CVX and XOM)
+![Relation between two stocks (CVX and XOM)](charts/return_relationship.png)
+
 
 ## Significant Movements with Dates
+CVX - October 27TH, 2023 : NEGATIVE MOVEMENT
+
+XOM - APRIL 3RD, 2023 : POSITIVE MOVEMENT
+
+FANG - Februrary 13TH, 2024 :POSITIVE MOVEMENT 
+
+*Interesting observation March 15TH, 2023 for the FANG and XOM both experiened negative movement* 
 
 ## Resarched Explanations with Sources
+CVX: 
+
+XOM:
+
+FANG: 
 
 ## Short Summary of Findings
 Finding 1: All three stocks have positive average daily returns, but their performance differs.
