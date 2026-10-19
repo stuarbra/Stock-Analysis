@@ -9,16 +9,16 @@ Date Accessed : 2026-10-18
 Article Title : "Chevron’s third-quarter profit slumps, shares fall 5% on earnings miss"
 Organization : CNBC
 URL : https://www.cnbc.com/2023/10/27/chevron-cvx-q3-profit-slumps-despite-higher-oil-prices.html
-Supplementary Reasoning : With adjusted profit being $3.05 a share in comparision to what analysts expected at $3.75 causing investors to revise and restrategieze their investment, leading to shares falling to 5.4%. 
+Supplementary Reasoning : With adjusted profit being $3.05 a share in comparision to what analysts expected at $3.75 causing investors to revise and restrategieze their investment, leading to shares falling to 5.4%. Also touches upon, acquisition of PDC energy, a majority stake in ACES Delta, and notion of acquisition of U.S. rival Hess Corp
  
 TICKER  [FANG] - FEBRUARY 13TH, 2024 POSITIVE MOVEMENT 
 Date Accessed : 2026-10-18
 Article Title : "Diamondback Energy, Inc. and Endeavor Energy Resources, L.P. to Merge to Create a Premier Permian Independent Oil and Gas Company"
 Organization : Diamondback Energy, published by U.S. Securities and Exchange Commision 
-URL : https://www.sec.gov/Archives/edgar/data/1539838/000114036124006881/ny20021341x1_ex99-2.html
+URL : https://www.sec.gov/Archives/edgar/data/1539838/000114036124006881/ny20021341x1_ex99-2.htm
 Supplementary Reasoning : Merger announcement between Diamondback and Endeavor valued at approximately $26 billion. A key remark from Diamondback refers to annual synergies of $550 million with a ~10% free cash flow per share accretion expected in 2025 which can explain positive investor behavior. 
 
-TICKER  [XOM] - MARCH APRIL 3RD, 2023 POSITIVE MOVEMENT 
+TICKER  [XOM] - APRIL 3RD, 2023 POSITIVE MOVEMENT 
 Date Accessed : 2026-10-18
 Article Title : Press Release - 2023 : 48th Meeting of the Joint Ministerial Monitoring Committee
 Organization : Organization of the Petreoleum Exporting Countries 
