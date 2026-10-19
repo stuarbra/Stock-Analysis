@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
@@ -211,4 +210,14 @@ plt.tight_layout()
 plt.savefig(f"charts/{event_ticker}_event_window.png", dpi=150)
 plt.show()
 
-print(f"Selected {event_ticker} candidate: {event_choice['Daily_Return_Pct']:.2f}% on {event_date.date()}")
+# Chart 3 : Distribution spread of daily returns of all stocks
+Path("charts").mkdir(exist_ok=True)
+
+long["Daily_Return"] = long["Daily_Return"] * 100  
+long.boxplot(column="Daily_Return", by="Ticker", figsize=(9,5))
+plt.title("Daily return distributions by ticker")
+plt.xlabel("Ticker")
+plt.ylabel("Daily return (%)")
+plt.tight_layout()
+plt.savefig("charts/return_distribution.png", dpi=150)
+plt.show()
