@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
@@ -161,7 +160,83 @@ print("\nBusiness Story Summary:"
 "\nNegative movement - Total earning dropped"
 "\nFANG - FEBRUARY 13TH, 2024 "
 "\nPositive movement - Merger with Endeavor Energy"
-"\nXOM - MARCH APRIL 3RD, 2023 "
+"\nXOM - APRIL 3RD, 2023 "
 "\nPositive movement - OPEC+ meeting and production cuts announcement"
 )
 
+#Visualization 
+# Chart 1 : Normalized price performance across the analysis period
+Path("charts").mkdir(exist_ok=True)
+price_matrix = long.pivot(index="Date", columns="Ticker", values="Close")
+normalized = (
+    price_matrix
+    .div(price_matrix.iloc[0])
+    .mul(100)
+)
+
+normalized.plot(figsize=(10, 6))
+plt.title("Normalized price performance across the analysis period")
+plt.xlabel("Date")
+plt.ylabel("Indexed price (first observation = 100)")
+plt.tight_layout()
+plt.savefig("charts/normalized_prices.png", dpi=150)
+plt.show()
+
+#Chart 2 : Significant movement period for CVX
+Path("charts").mkdir(exist_ok=True)
+
+event_choice = movement_candidates[
+    (movement_candidates['Ticker'] == 'CVX') 
+    & (movement_candidates['Type'] == 'Biggest Loss')
+].iloc[0]
+event_ticker = event_choice['Ticker']
+event_date = pd.Timestamp(event_choice['Event_Date'])
+
+calendar_window = pd.Timedelta(days=14)
+event_window = long[
+    (long['Ticker'] == event_ticker)
+    & long['Date'].between(event_date - calendar_window, event_date + calendar_window)
+].sort_values('Date').set_index('Date')
+
+ax = event_window['Close'].plot(
+    kind='line', marker='o', figsize=(10, 5),
+    title=f"{event_ticker}: Event Window Around {event_date.date()}",
+    ylabel='Adjusted closing price ($)'
+)
+ax.axvline(event_date, color='red', linestyle='--', label=event_choice['Type'])
+ax.set_xlabel('Date')
+ax.legend()
+plt.tight_layout()
+plt.savefig(f"charts/{event_ticker}_event_window.png", dpi=150)
+plt.show()
+
+# Chart 3 : Distribution spread of daily returns of all stocks
+Path("charts").mkdir(exist_ok=True)
+
+long["Daily_Return_Pct"] = long["Daily_Return"] * 100  
+long.boxplot(column="Daily_Return_Pct", by="Ticker", figsize=(9,5))
+plt.title("Daily return distributions by ticker")
+plt.suptitle("")
+plt.xlabel("Ticker")
+plt.ylabel("Daily return (%)")
+plt.tight_layout()
+plt.savefig("charts/return_distribution.png", dpi=150)
+plt.show()
+
+# Chart 4 : Scatter plot of daily returns between CVX and XOM
+Path("charts").mkdir(exist_ok=True)
+
+scatter_points = long.pivot(index="Date", columns="Ticker", values="Daily_Return_Pct")
+
+plt.figure(figsize=(7, 5))
+plt.scatter(
+    scatter_points["CVX"],
+    scatter_points["XOM"],
+    alpha=0.35,
+)
+plt.title("Daily return relationship: CVX vs. XOM")
+plt.xlabel("CVX daily return (%)")
+plt.ylabel("XOM daily return (%)")
+plt.tight_layout()
+plt.savefig("charts/return_relationship.png", dpi=150)
+plt.show()
